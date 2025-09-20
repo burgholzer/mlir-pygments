@@ -1,0 +1,85 @@
+# Copyright (c) 2025 Lukas Burgholzer
+# All rights reserved.
+#
+# SPDX-License-Identifier: MIT
+#
+# Licensed under the MIT License
+
+[build-system]
+requires = ["uv_build>=0.8.4,<0.9.0"]
+build-backend = "uv_build"
+
+[project]
+name = "mlir-pygments"
+version = "1.0.0"
+description = "Pygments lexer for MLIR"
+readme = "README.md"
+authors = [
+    { name = "Lukas Burgholzer", email = "burgholzer@me.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "pygments>=2.0",
+]
+license = "MIT"
+license-files = ["LICENSE.md"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: C++",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Typing :: Typed",
+]
+
+[project.entry-points.'pygments.lexers']
+mlir_lexer = "mlir_pygments:MLIRLexer"
+
+
+[tool.pytest.ini_options]
+minversion = "7.2"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+]
+xfail_strict = true
+filterwarnings = ["error"]
+log_cli_level = "INFO"
+testpaths = ["tests"]
+
+
+[tool.ruff]
+line-length = 120
+preview = true
+unsafe-fixes = true
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "C90",     # <...> too complex
+    "COM812",  # Conflicts with formatter
+    "ISC001",  # Conflicts with formatter
+    "PLR09",   # Too many <...>
+    "PLR2004", # Magic value used in comparison
+    "S101",    # Use of assert detected
+]
+future-annotations = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["T20", "INP001"]
+
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+    "ruff>=0.13.1",
+    "ty>=0.0.1a21",
+]
