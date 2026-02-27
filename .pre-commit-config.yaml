@@ -89,7 +89,7 @@ repos:
 
   # Check JSON schemata
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.34.1
+    rev: 0.37.0
     hooks:
       - id: check-dependabot
       - id: check-github-workflows
